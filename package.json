@@ -11,10 +11,13 @@
   "dependencies": {
     "forest": "^0.21.2",
     "leaflet": "^1.9.4",
+    "leaflet-defaulticon-compatibility": "^0.1.2",
     "next": "16.0.4",
+    "proj4": "^2.20.2",
     "react": "19.2.0",
     "react-dom": "19.2.0",
-    "react-leaflet": "^5.0.0"
+    "react-leaflet": "^5.0.0",
+    "react-toastify": "^11.0.5"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",

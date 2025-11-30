@@ -1,11 +1,17 @@
-"use client";
-import MapView from "../../components/MapView";
+import LayoutWithNavbar from "../layout-with-navbar";
+import MapView from "@/components/MapView";
 
 export default function MapPage() {
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50 p-4">
-      <h1 className="text-3xl font-bold mb-6">GIS Map</h1>
-      <MapView />
-    </div>
+    <LayoutWithNavbar title="GIS">
+      <div className="flex items-center justify-center p-4">
+        <div
+          className="w-full bg-white rounded-lg shadow-md overflow-hidden"
+          style={{ height: "70vh", maxWidth: "95%" }}
+        >
+          <MapView />
+        </div>
+      </div>
+    </LayoutWithNavbar>
   );
 }
