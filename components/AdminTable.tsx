@@ -1,6 +1,5 @@
 "use client";
 import { useEffect, useState } from "react";
-import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 
 interface Booking {
@@ -20,12 +19,6 @@ export default function AdminTable() {
     setBookings(data.bookings);
     setAvailableSeats(data.availableSeats);
     setStatus(data.status);
-
-    if (data.status === "full") {
-      toast.warn("ที่นั่งเต็มแล้ว (Seats are full)");
-    } else {
-      toast.success(`มีที่นั่งว่าง ${data.availableSeats} ที่`);
-    }
   };
 
   useEffect(() => {
@@ -34,8 +27,6 @@ export default function AdminTable() {
 
   return (
     <div className="max-w-7xl w-full p-6 bg-white rounded shadow">
-      <ToastContainer position="top-right" autoClose={3000} />
-
       <div className="flex items-center justify-between mb-4">
         <p className="mb-2 text-gray-400">
           Available Seats: {availableSeats} | Status: {status}

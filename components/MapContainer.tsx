@@ -15,8 +15,8 @@ import GeoJsonLayer from "./GeoJsonLayer";
 const MapViewClient = () => {
   return (
     <MapContainer
-      center={[16.4563, 99.5018]}
-      zoom={10}
+      center={[16.6363, 99.4618]}
+      zoom={13}
       scrollWheelZoom={true}
       className="h-screen w-full"
     >

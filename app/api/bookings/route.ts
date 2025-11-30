@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const CAPACITY = 3;
+const CAPACITY = 10;
 
 const bookings: { name: string; email: string }[] = [];
 
@@ -53,6 +53,6 @@ export async function DELETE(req: NextRequest) {
   const removed = bookings.splice(index, 1)[0];
 
   return NextResponse.json({
-    message: `${removed.name} cancelled`,
+    message: `${removed.name} cancelled, seats available again`,
   });
 }

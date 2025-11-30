@@ -1,36 +1,167 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Online Ticket Booking System
 
-## Getting Started
+ระบบจองตั๋วออนไลน์ (Online Ticket Booking System)
 
-First, run the development server:
+---
+
+## 💻 Features
+
+1. **Booking**
+
+   - ผู้ใช้กรอกชื่อและอีเมลเพื่อจองตั๋ว
+   - ระบบตรวจสอบความถูกต้องของอีเมล และห้ามซ้ำชื่อ/อีเมล
+   - แจ้งผลว่า "จองสำเร็จ" หรือ "เต็มแล้ว" หาก capacity เต็ม
+
+2. **Cancel**
+
+   - ผู้ใช้สามารถยกเลิกการจองด้วยอีเมล
+   - หลังยกเลิก แจ้งเตือนว่ามีที่นั่งว่างแล้ว
+
+3. **List Bookings**
+
+   - Admin ดูรายชื่อผู้จองทั้งหมด
+   - แสดงจำนวนที่นั่งว่างและสถานะ (`available` / `full`)
+
+4. **Notifications**
+
+   - จองเต็ม → ⚠️ แจ้งเตือนเต็ม
+   - มีที่ว่าง → ℹ️ แจ้งเตือนมีที่ว่าง
+
+5. **GIS Map**
+
+   - แสดงข้อมูล GIS บนหน้าเว็บ
+   - ใช้ Leaflet/OpenLayers แสดงชั้นข้อมูล
+   - ตัวข้อมูลสามารถดึงจาก [NCED Dashboard](https://nced.onep.go.th/dashboard.html)
+   - แนะนำการจัดเก็บข้อมูล: GeoJSON ในฐานข้อมูลหรือไฟล์ JSON สำหรับโหลดเร็วบน frontend
+
+---
+
+## ⚡ API Examples
+
+### 1. Book Ticket
+
+```
+POST /api/bookings
+Body: {"name": "Alice", "email": "alice@example.com"}
+
+Response:
+{"message": "Alice booked successfully"}
+```
+
+### 2. Cancel Ticket
+
+```
+DELETE /api/bookings/alice@example.com
+
+Response:
+{"message": "Alice cancelled, seats available again"}
+```
+
+### 3. List Bookings
+
+```
+GET /api/bookings
+
+Response:
+{
+  "bookings": [
+    {"name": "Alice", "email": "alice@example.com"},
+    {"name": "Bob", "email": "bob@example.com"}
+  ],
+  "availableSeats": 8,
+  "status": "available"
+}
+```
+
+---
+
+## 🏗️ Installation & Run
+
+1. Clone the repository
+
+```bash
+git clone https://github.com/first2905zb/online-ticket-booking.git
+cd online-ticket-booking
+```
+
+2. Install dependencies
+
+```bash
+npm install
+```
+
+3. Run development server
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+4. เปิดเบราว์เซอร์ไปที่
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+```
+http://localhost:3000
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## 🧪 Testing
 
-To learn more about Next.js, take a look at the following resources:
+- ใช้ **Postman** ทดสอบ API
+- ตัวอย่าง:
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```bash
+# Booking
+![api post booking](/data/post_bookings)
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Cancel
+![api delete booking](/data/delete_bookings)
 
-## Deploy on Vercel
+# List
+![api get booking](/data/get_bookings)
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## แนวทางในการจัดเก็บข้อมูล และองค์ความรู้ที่สามารถดึงข้อมูลมาแสดงบนหน้าระบบ ได้อย่างรวดเร็ว
+
+- เก็บข้อมูลแบบเป็นระเบียบ แบ่งประเภทข้อมูลชัดเจน เช่น ข้อมูลผู้จอง ข้อมูลแผนที่ ข้อมูลสถานที่ เพื่อให้ค้นหาและจัดการง่าย
+
+- Indexing สำหรับข้อมูลที่ใช้ค้นหาบ่อย เช่น อีเมลหรือรหัสสถานที่ เพื่อเพิ่มความเร็วในการดึงข้อมูล
+
+- โหลดข้อมูลแบบเลือกส่วน (Lazy Load / Pagination): แทนการโหลดข้อมูลทั้งหมดพร้อมกัน ช่วยลดเวลาในการโหลดหน้าเว็บ
+
+- ใช้ cache หรือ state ใน frontend: เก็บข้อมูลที่ดึงมาแล้วใน memory เพื่อลดจำนวนการเรียก API ซ้ำ
+
+---
+
+## 📝 Design Choices
+
+1. **In-memory storage** สำหรับตัวอย่างระบบเล็ก ๆ → ง่ายต่อการพัฒนา
+2. **Notification** → ใช้ react-toastify → สวยงามและง่ายต่อการพัฒนา
+3. **GIS Map** → ใช้ Leaflet + GeoJSON → โหลดเร็วและปรับแต่งง่าย
+4. **Next.js** → full-stack web applications → สะดวกสำหรับทำเว็บ full-stack ขนาดไม่ใหญ่มาก
+
+---
+
+## 📂 Project Structure (ตัวอย่าง)
+
+```
+'/app
+    /admin
+        page.tsx
+    /api
+        /bookings
+            route.ts
+    /booking
+        page.tsx
+    layout.tsx'
+    page.tsx
+/component
+    AdminTable.tsx
+    BookingForm.tsx
+    Cancel.tsx
+/lib
+    geoJsonConverter.ts
+/public
+    /data
+        bhuminiwes_naturalsite.json
+```
