@@ -111,13 +111,13 @@ http://localhost:3000
 
 ```bash
 # Booking
-![api post booking](./data/post_bookings)
+![api post booking](./data/post_booking.png)
 
 # Cancel
-![api delete booking](./data/delete_bookings)
+![api delete booking](./data/delete_bookings.png)
 
 # List
-![api get booking](./data/get_bookings)
+![api get booking](./data/get_bookings.png)
 
 ```
 
