@@ -110,13 +110,13 @@ http://localhost:3000
 - ตัวอย่าง:
 
 # Booking
-![api post booking](public/data/post_bookings.png)
+![api post booking](assets/post_bookings.png)
 
 # Cancel
-![api delete booking](public/data/delete_bookings.png)
+![api delete booking](assets/delete_bookings.png)
 
 # List
-![api get booking](public/data/get_bookings.png)
+![api get booking](assets/get_bookings.png)
 
 
 ---
