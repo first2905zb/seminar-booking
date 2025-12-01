@@ -111,15 +111,17 @@ http://localhost:3000
 
 ```bash
 # Booking
-![api post booking](public/data/post_bookings.png)
+![api post booking](assets/post_bookings.png)
 
 # Cancel
-![api delete booking](public/data/delete_bookings.png)
+![api delete booking](assets/delete_bookings.png)
 
 # List
-![api get booking](public/data/get_bookings.png)
+![api get booking](assets/get_bookings.png)
 
 ```
+![api post booking](public/data/post_bookings.png)
+
 
 ## แนวทางในการจัดเก็บข้อมูล และองค์ความรู้ที่สามารถดึงข้อมูลมาแสดงบนหน้าระบบ ได้อย่างรวดเร็ว
 
