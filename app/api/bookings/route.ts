@@ -1,14 +1,26 @@
 import { NextRequest, NextResponse } from "next/server";
 
-const CAPACITY = 10;
+let CAPACITY = 10;
 
-const bookings: { name: string; email: string }[] = [];
+let bookings: { name: string; email: string }[] = [];
+
+export async function PUT(req: NextRequest) {
+  const { capacity } = await req.json();
+
+  if (typeof capacity !== "number" || capacity < 1) {
+    return NextResponse.json({ message: "Invalid capacity" }, { status: 400 });
+  }
+
+  CAPACITY = capacity;
+
+  return NextResponse.json({ message: `Capacity updated to ${CAPACITY}` });
+}
 
 export async function GET(req: NextRequest) {
   const availableSeats = CAPACITY - bookings.length;
   const status = availableSeats > 0 ? "available" : "full";
 
-  return NextResponse.json({ bookings, availableSeats, status });
+  return NextResponse.json({ bookings, availableSeats, status, capacity: CAPACITY });
 }
 
 export async function POST(req: NextRequest) {
